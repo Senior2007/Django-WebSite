@@ -2,6 +2,7 @@ FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PORT=8000
 
 WORKDIR /app
 
@@ -17,4 +18,4 @@ COPY . .
 RUN python manage.py collectstatic --noinput
 
 EXPOSE $PORT
-CMD sh -c "python manage.py migrate && python manage.py seed_data && python manage.py runserver 0.0.0.0:$PORT"
+CMD sh -c "python manage.py migrate && python manage.py seed_data && gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000}"
