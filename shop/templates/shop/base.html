@@ -58,7 +58,14 @@
     <section>
         <strong>Таймзона:</strong> {{ server_timezone }} ({{ timezone_offset }})<br>
         <strong>UTC:</strong> {{ now_utc|timezone:"UTC"|date:"d/m/Y H:i" }}<br>
-        <strong>Локальное время:</strong> {{ now_local|timezone:server_timezone|date:"d/m/Y H:i" }}
+        <strong>Локальное время:</strong>
+        {% if now_local %}
+            {% if server_timezone %}
+                {{ now_local|timezone:server_timezone|date:"d/m/Y H:i" }}
+            {% else %}
+                {{ now_local|date:"d/m/Y H:i" }}
+            {% endif %}
+        {% endif %}
     </section>
     <section>
         <strong>Календарь</strong>
