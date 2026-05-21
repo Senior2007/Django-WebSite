@@ -1,4 +1,4 @@
-{% load static %}
+{% load static tz %}
 <!doctype html>
 <html lang="ru">
 <head>
@@ -57,8 +57,8 @@
 <footer class="site-footer">
     <section>
         <strong>Таймзона:</strong> {{ server_timezone }} ({{ timezone_offset }})<br>
-        <strong>UTC:</strong> {{ now_utc|date:"d/m/Y H:i" }}<br>
-        <strong>Локальное время:</strong> {{ now_local|date:"d/m/Y H:i" }}
+        <strong>UTC:</strong> {{ now_utc|timezone:"UTC"|date:"d/m/Y H:i" }}<br>
+        <strong>Локальное время:</strong> {{ now_local|timezone:server_timezone|date:"d/m/Y H:i" }}
     </section>
     <section>
         <strong>Календарь</strong>

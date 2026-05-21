@@ -1,4 +1,5 @@
 {% extends 'shop/base.html' %}
+{% load tz %}
 {% block title %}{{ part.name }}{% endblock %}
 {% block content %}
 <article class="detail">
@@ -16,7 +17,7 @@
         {% if user.is_staff or user.is_superuser %}
             <tr><th>Поставщики</th><td>{% for supplier in part.suppliers.all %}{{ supplier.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td></tr>
         {% endif %}
-        <tr><th>Создано</th><td>{{ part.created_at_utc|date:"d/m/Y H:i" }} UTC / {{ part.created_at_local_text }} {{ part.created_at_timezone }}</td></tr>
+        <tr><th>Создано</th><td>{{ part.created_at_utc|timezone:"UTC"|date:"d/m/Y H:i" }} UTC / {{ part.created_at_local_text }} {{ part.created_at_timezone }}</td></tr>
     </table>
     <div class="actions">
         {% if user.is_authenticated %}<a class="button" href="{% url 'sale_create' %}?part={{ part.pk }}">Купить</a>{% endif %}
